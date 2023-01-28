@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_127x6s7" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
+  <bpmn:message id="OkladkaMsgId" name="OkladkaMsg" />
+  <bpmn:message id="WynikOkladkaMsgId" name="WynikOkladkaMsg" />
+  <bpmn:process id="Okladka" isExecutable="true">
+    <bpmn:startEvent id="StartOkladkaId" name="Otrymanie wiadomości o przygotowaniu okładki">
+      <bpmn:outgoing>SequenceFlow_1hr0d6n</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_12tz7yn" messageRef="OkladkaMsgId" />
+    </bpmn:startEvent>
+    <bpmn:intermediateCatchEvent id="IntermediateCatchEvent_0ygyw53" name="Praca grafika&#10;5s">
+      <bpmn:incoming>SequenceFlow_1hr0d6n</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_08hnf7h</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_185qrk7">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT5S</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:endEvent id="EndOkladkaId" name="Wysłanie gotowej grafiki">
+      <bpmn:incoming>SequenceFlow_14hbfzi</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1m4ddp2" messageRef="WynikOkladkaMsgId" camunda:class="com.projekt.callback.Okladka" />
+    </bpmn:endEvent>
+    <bpmn:scriptTask id="ScriptTask_1rtd1xw" name="Przygotowanie okładki" scriptFormat="groovy">
+      <bpmn:incoming>SequenceFlow_08hnf7h</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_14hbfzi</bpmn:outgoing>
+      <bpmn:script>execution.setVariable("status_okladki", true)
+execution.setVariable("cena_okladki", 150)</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1hr0d6n" sourceRef="StartOkladkaId" targetRef="IntermediateCatchEvent_0ygyw53" />
+    <bpmn:sequenceFlow id="SequenceFlow_08hnf7h" sourceRef="IntermediateCatchEvent_0ygyw53" targetRef="ScriptTask_1rtd1xw" />
+    <bpmn:sequenceFlow id="SequenceFlow_14hbfzi" sourceRef="ScriptTask_1rtd1xw" targetRef="EndOkladkaId" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Okladka">
+      <bpmndi:BPMNShape id="StartEvent_1pazcna_di" bpmnElement="StartOkladkaId">
+        <dc:Bounds x="66" y="47" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="49" y="90" width="71" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="IntermediateCatchEvent_0ygyw53_di" bpmnElement="IntermediateCatchEvent_0ygyw53">
+        <dc:Bounds x="152" y="47" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="138" y="90" width="65" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0s8blc4_di" bpmnElement="EndOkladkaId">
+        <dc:Bounds x="388" y="47" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="363" y="90" width="86" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ScriptTask_1rtd1xw_di" bpmnElement="ScriptTask_1rtd1xw">
+        <dc:Bounds x="238" y="25" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1hr0d6n_di" bpmnElement="SequenceFlow_1hr0d6n">
+        <di:waypoint x="102" y="65" />
+        <di:waypoint x="152" y="65" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_08hnf7h_di" bpmnElement="SequenceFlow_08hnf7h">
+        <di:waypoint x="188" y="65" />
+        <di:waypoint x="238" y="65" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_14hbfzi_di" bpmnElement="SequenceFlow_14hbfzi">
+        <di:waypoint x="338" y="65" />
+        <di:waypoint x="388" y="65" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

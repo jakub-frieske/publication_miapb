@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1j8iswz" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
+  <bpmn:process id="Wycena" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_19g7718">
+      <bpmn:outgoing>SequenceFlow_0a3jyem</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="EndEvent_1lykudz">
+      <bpmn:incoming>SequenceFlow_0k0k5pf</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:scriptTask id="ScriptTask_0hrvtzt" name="Wycena" scriptFormat="groovy">
+      <bpmn:incoming>SequenceFlow_0a3jyem</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1rco9op</bpmn:outgoing>
+      <bpmn:script>double cena_suma = cena_wydawnicta+cena_okladki+cena_redakcji_korekty+cena_ebook
+execution.setVariable("promocja", "Za mało egzemplarzy")
+execution.setVariable("cena_suma", cena_suma)</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1rco9op" sourceRef="ScriptTask_0hrvtzt" targetRef="ExclusiveGateway_1y8yfg5" />
+    <bpmn:sequenceFlow id="SequenceFlow_0a3jyem" sourceRef="StartEvent_19g7718" targetRef="ScriptTask_0hrvtzt" />
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1y8yfg5" name="Czy można dać promocje?&#10;(lb_egzemplarzy&#62;=100)" default="SequenceFlow_0k0k5pf">
+      <bpmn:incoming>SequenceFlow_1rco9op</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0k0k5pf</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0nxbkxf</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_0k0k5pf" name="Tak" sourceRef="ExclusiveGateway_1y8yfg5" targetRef="EndEvent_1lykudz" />
+    <bpmn:endEvent id="EndEvent_15oj8dk">
+      <bpmn:incoming>SequenceFlow_0u86jyn</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0nxbkxf" name="Nie" sourceRef="ExclusiveGateway_1y8yfg5" targetRef="ScriptTask_041xypy">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${umowa_lb_egzemplarzy&gt;=100}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:scriptTask id="ScriptTask_041xypy" name="Promocja 5%" scriptFormat="groovy">
+      <bpmn:incoming>SequenceFlow_0nxbkxf</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0u86jyn</bpmn:outgoing>
+      <bpmn:script>double cena_suma= cena_suma * 0.95
+execution.setVariable("promocja", "Powyzej 100 egzemplarzy")
+execution.setVariable("cena_suma", cena_suma)</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0u86jyn" sourceRef="ScriptTask_041xypy" targetRef="EndEvent_15oj8dk" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Wycena">
+      <bpmndi:BPMNShape id="StartEvent_19g7718_di" bpmnElement="StartEvent_19g7718">
+        <dc:Bounds x="615" y="125" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1lykudz_di" bpmnElement="EndEvent_1lykudz">
+        <dc:Bounds x="1028" y="125" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ScriptTask_0hrvtzt_di" bpmnElement="ScriptTask_0hrvtzt">
+        <dc:Bounds x="691" y="103" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1rco9op_di" bpmnElement="SequenceFlow_1rco9op">
+        <di:waypoint x="791" y="143" />
+        <di:waypoint x="849" y="143" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0a3jyem_di" bpmnElement="SequenceFlow_0a3jyem">
+        <di:waypoint x="651" y="143" />
+        <di:waypoint x="691" y="143" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_1y8yfg5_di" bpmnElement="ExclusiveGateway_1y8yfg5" isMarkerVisible="true">
+        <dc:Bounds x="849" y="118" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="833" y="51" width="82" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0k0k5pf_di" bpmnElement="SequenceFlow_0k0k5pf">
+        <di:waypoint x="899" y="143" />
+        <di:waypoint x="1028" y="143" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="878" y="175" width="17" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_15oj8dk_di" bpmnElement="EndEvent_15oj8dk">
+        <dc:Bounds x="1028" y="235" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0nxbkxf_di" bpmnElement="SequenceFlow_0nxbkxf">
+        <di:waypoint x="874" y="168" />
+        <di:waypoint x="874" y="253" />
+        <di:waypoint x="897" y="253" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="918" y="123" width="17" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_041xypy_di" bpmnElement="ScriptTask_041xypy">
+        <dc:Bounds x="897" y="213" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0u86jyn_di" bpmnElement="SequenceFlow_0u86jyn">
+        <di:waypoint x="997" y="253" />
+        <di:waypoint x="1028" y="253" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

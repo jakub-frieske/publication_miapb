@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" id="Definitions_1gjmsq9" name="DRD" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="OcenaKsiazki" name="OcenaKsiazki">
+    <decisionTable id="decisionTable_1">
+      <input id="input_1" label="tytul">
+        <inputExpression id="inputExpression_1" typeRef="integer">
+          <text>${podanie_tytul.length()}</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1ov941f" label="opis">
+        <inputExpression id="LiteralExpression_1g8hbi0" typeRef="integer">
+          <text>${podanie_opis.length()}</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0rvcw42" label="kategoria">
+        <inputExpression id="LiteralExpression_06o83i9" typeRef="string">
+          <text>podanie_kategoria</text>
+        </inputExpression>
+      </input>
+      <output id="output_1" name="zatwierdzono" typeRef="boolean" />
+      <output id="OutputClause_1qtldsl" name="uzasadnienie" typeRef="string" />
+      <output id="OutputClause_1e4dwne" name="decyzja" typeRef="boolean" />
+      <rule id="DecisionRule_0utx1dp">
+        <inputEntry id="UnaryTests_0rm0rjz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15kg7lh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wkncmi">
+          <text>"horror"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_11p8lho">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1wb2z2a">
+          <text>"Nie publikujemy żadnych książek o tematyce horror."</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_07out8o">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1dfgiyt">
+        <inputEntry id="UnaryTests_1w3edze">
+          <text>&lt;= 0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0r5l16f">
+          <text>&lt;= 0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0k9xnwl">
+          <text>not("horror")</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xmqxtd">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1po71zc">
+          <text>"Nie podałeś tytułu ani opisu, może spróbujesz jeszcze raz?"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0xhmd5q">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1wo5ei2">
+        <inputEntry id="UnaryTests_0syjsf1">
+          <text>&gt; 0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yycbbs">
+          <text>&lt;= 0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1naxb4t">
+          <text>not("horror")</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0viqice">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0v9c3k9">
+          <text>"Książki bez opisu są automatycznie odrzucane, może dodasz opis?"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_04rihzo">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1j31uir">
+        <inputEntry id="UnaryTests_1yi7g7z">
+          <text>&lt;= 0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zyt4hz">
+          <text>&gt;= 10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0q780zo">
+          <text>not("horror")</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1jcjevy">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_070gvvd">
+          <text>"Nie podałeś tytułu, zapomniałeś o nim?"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16jqvqn">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1fyl1lk">
+        <inputEntry id="UnaryTests_0kuq2iy">
+          <text>&gt; 0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0opd8mf">
+          <text>&gt;= 10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05tslbc">
+          <text>not("horror")</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0zfg79t">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1x98o23">
+          <text>"Interesująca książka, możemy rozpocząć rozmowę o umowie."</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_03wwfcf">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

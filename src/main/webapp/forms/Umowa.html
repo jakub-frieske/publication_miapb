@@ -1,0 +1,79 @@
+<form name="OdebranieDecyzji">
+    <div class="form-group">
+        <label for="imie_nazwisko">Imię i nazwisko</label>
+        <input class="form-control"
+               cam-variable-type="String"
+               cam-variable-name="umowa_imie_nazwisko"
+               name="imie_nazwisko" />
+    </div>
+    <div class="form-group">
+        <label for="autor">Autor</label>
+        <input class="form-control"
+               cam-variable-type="String"
+               cam-variable-name="podanie_autor"
+               name="autor"
+               readonly="true"/>
+    </div>
+    <div class="form-group">
+        <label for="tytul">Tytuł</label>
+        <input class="form-control"
+               cam-variable-type="String"
+               cam-variable-name="podanie_tytul"
+               name="tytul"
+               readonly="true"/>
+    </div>
+    <div class="form-group">
+        <label for="opis">Opis</label>
+        <input class="form-control"
+               cam-variable-type="String"
+               cam-variable-name="podanie_opis"
+               name="opis"
+               readonly="true" />
+    </div>
+    <div class="form-group">
+        <label for="kategoria">Kategoria</label>
+        <input class="form-control"
+               cam-variable-type="String"
+               cam-variable-name="podanie_kategoria"
+               name="kategoria"
+               readonly="true" />
+    </div>
+    <div class="form-group">
+        <label>
+            <input
+                    type="checkbox"
+                    class="form-control"
+                    cam-variable-type="Boolean"
+                    cam-variable-name="podanie_ebook"
+                    />
+            Ebook</label>
+    </div>
+    <div class="form-group">
+        <label for="lb_egzemplarzy">Liczba egzemplarzy</label>
+        <input
+                class="form-control"
+                cam-variable-type="Integer"
+                cam-variable-name="umowa_lb_egzemplarzy"
+                name="lb_egzemplarzy" />
+    </div>
+    <div class="form-group">
+        <label >
+            <input
+                    type="checkbox"
+                    class="form-control"
+                    cam-variable-type="Boolean"
+                    cam-variable-name="umowa_korekta"
+                    />
+            Korekta tekstu</label>
+    </div>
+    <div class="form-group">
+        <label >
+            <input
+                    type="checkbox"
+                    class="form-control"
+                    cam-variable-type="Boolean"
+                    cam-variable-name="umowa_okladka"
+                    /> Projekt okładki
+        </label>
+    </div>
+</form>

@@ -1,0 +1,47 @@
+<form name="ZlozeniePodania">
+    <script cam-script type="text/form-script">
+
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+}
+
+    camForm.on('submit', function() {
+      camForm.businessKey = guid();
+    });
+
+  </script>
+    <div class="form-group">
+        <label for="autor">Autor</label>
+        <input class="form-control"
+               cam-variable-type="String"
+               cam-variable-name="podanie_autor"
+               name="autor" />
+    </div>
+    <div class="form-group">
+        <label for="tytul">Tytuł</label>
+        <input class="form-control"
+               cam-variable-type="String"
+               cam-variable-name="podanie_tytul"
+               name="tytul" />
+    </div>
+    <div class="form-group">
+        <label for="opis">Opis</label>
+        <input class="form-control"
+               cam-variable-type="String"
+               cam-variable-name="podanie_opis"
+               name="opis" />
+    </div>
+    <div class="form-group">
+        <label for="kategoria">Kategoria</label>
+        <input class="form-control"
+               cam-variable-type="String"
+               cam-variable-name="podanie_kategoria"
+               name="kategoria" />
+    </div>
+</form>

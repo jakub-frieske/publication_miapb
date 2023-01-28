@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0lxhq3k" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
+  <bpmn:process id="Drukowanie" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_0cc5oz3</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0cc5oz3" sourceRef="StartEvent_1" targetRef="IntermediateThrowEvent_0k1oqe6" />
+    <bpmn:endEvent id="EndEvent_0r21pd4">
+      <bpmn:incoming>SequenceFlow_0fl9xm2</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0fl9xm2" sourceRef="Task_0ggzenw" targetRef="EndEvent_0r21pd4" />
+    <bpmn:scriptTask id="Task_0ggzenw" name="Status drukowania" scriptFormat="groovy">
+      <bpmn:incoming>SequenceFlow_13brlku</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0fl9xm2</bpmn:outgoing>
+      <bpmn:script>execution.setVariable("status_druku", true)</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="SequenceFlow_13brlku" sourceRef="IntermediateThrowEvent_0k1oqe6" targetRef="Task_0ggzenw" />
+    <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_0k1oqe6" name="Proces drukowania&#10;10s">
+      <bpmn:incoming>SequenceFlow_0cc5oz3</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_13brlku</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT10S</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Drukowanie">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="224" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0cc5oz3_di" bpmnElement="SequenceFlow_0cc5oz3">
+        <di:waypoint x="260" y="120" />
+        <di:waypoint x="305" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_0r21pd4_di" bpmnElement="EndEvent_0r21pd4">
+        <dc:Bounds x="536" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0fl9xm2_di" bpmnElement="SequenceFlow_0fl9xm2">
+        <di:waypoint x="487" y="120" />
+        <di:waypoint x="536" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_1lr4cvu_di" bpmnElement="Task_0ggzenw">
+        <dc:Bounds x="387" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_13brlku_di" bpmnElement="SequenceFlow_13brlku">
+        <di:waypoint x="341" y="120" />
+        <di:waypoint x="387" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="IntermediateCatchEvent_084i5rg_di" bpmnElement="IntermediateThrowEvent_0k1oqe6">
+        <dc:Bounds x="305" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="296" y="145" width="57" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
